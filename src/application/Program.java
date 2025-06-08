@@ -17,6 +17,7 @@ import model.entities.Reservation;
 public class Program {
     public static void main(String[] args) throws ParseException{
         
+        Reservation reservation = new Reservation();
         Scanner sc = new Scanner(System.in);
         SimpleDateFormat sdf = new SimpleDateFormat ("dd/MM/yyyy");
         
@@ -27,13 +28,12 @@ public class Program {
           System.out.println("Check-out date (dd/MM/yyyy)");
         Date checkOut = sdf.parse(sc.next());
         
-        if (!checkOut.after(checkIn)){
-            System.out.println("Error in reservation: Check- out date must be after checkin date");
-        }
-        else{
-            Reservation reservation = new Reservation(number, checkIn, checkOut);
-            System.out.println("Reservation: " + reservation);
-        }
+       String error= reservation.updateDates(checkIn, checkOut);
+       if (error != null){
+           System.out.println("Error in reservation: " + error);
+       }else{
+           System.out.println("Reservation: "+ reservation);
+       }
                 
     }
     
